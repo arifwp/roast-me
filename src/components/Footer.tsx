@@ -44,6 +44,7 @@ const navigation = {
 export const Footer = () => {
   return (
     <footer className="bg-[#FFBF78] mt-auto">
+      {/* Footer content */}
       <div className="flex flex-col sm:flex-row gap-4 py-6 px-4 items-center justify-between">
         <div className="flex justify-center gap-x-10">
           {navigation.social.map((item) => (
