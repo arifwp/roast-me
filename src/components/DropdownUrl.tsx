@@ -22,6 +22,8 @@ export const DropdownUrl = ({ disabled = false }: { disabled?: boolean }) => {
   );
 
   const handleChange = (value: SelectOption) => {
+    if(disabled) return;
+    
     addInput(value);
   };
 

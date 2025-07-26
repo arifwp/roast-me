@@ -1,15 +1,18 @@
 "use client";
 
 import { useInputGroupStore } from "@/hooks/useInputGroup";
-import { isValidGithubUrl, isValidLinkedInUrl } from "@/utils/urlValidation";
+import { isValidGithubUrl, isValidLinkedInUrl } from "@/utils/functions";
 import { useMutation } from "@tanstack/react-query";
-import { useEffect } from "react";
+import clsx from "clsx";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { DropdownUrl } from "./DropdownUrl";
 import { InputFile } from "./inputs/InputFile";
 import { InputUrl } from "./inputs/InputUrl";
 import { SpinnerLoading } from "./SkeletonLoading";
+import { TextBold } from "./TextBold";
 
 interface InputVal {
   linkedinUrl?: string;
@@ -19,6 +22,7 @@ interface InputVal {
 
 export const InputGroup = () => {
   const { listInputs, initialize } = useInputGroupStore();
+  const [roastResult, setRoastResult] = useState<string>("");
 
   useEffect(() => {
     initialize();
@@ -34,24 +38,30 @@ export const InputGroup = () => {
 
   const sendMutation = useMutation({
     mutationFn: async (data: InputVal) => {
-      const payload: InputVal = {
-        linkedinUrl: data.linkedinUrl,
-        githubUrl: data.githubUrl,
-        cv: data.cv,
-      };
+      const formData = new FormData();
+      if (data.linkedinUrl) {
+        formData.append("linkedinUrl", data.linkedinUrl);
+      }
+
+      if (data.githubUrl) {
+        formData.append("githubUrl", data.githubUrl);
+      }
+
+      if (data.cv) {
+        formData.append("cv", data.cv);
+      }
 
       const res = await fetch("/api/process", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
+        body: formData,
       });
 
       const result = await res.json();
-      console.log("result", result);
+      if (result?.data) {
+        setRoastResult(result?.data);
+      }
     },
-    onSuccess: () => {},
+    onSuccess: () => { },
     onError: (error) => {
       toast.error(error.message);
     },
@@ -154,15 +164,24 @@ export const InputGroup = () => {
           className="px-6 py-2 cursor-pointer rounded-md bg-(--color-secondary) hover:bg-(--color-secondary)/80 transition-colors duration-200 ease-in-out text-sm font-semibold text-(--color-brown-bold)"
           disabled={sendMutation.isPending}
           onClick={() => {
+            setRoastResult('')
             clearErrors();
             handleSubmit(onSubmit)();
           }}
         >
-          Submit
+          Roasting 🔥
         </button>
       </div>
 
       {sendMutation.isPending && <SpinnerLoading className="mt-4" />}
+
+      <AnimatePresence mode="wait">
+        {roastResult && !sendMutation.isPending && (
+          <motion.div className={clsx("mt-8 text-sm text-start border border-(--color-brown-bold) rounded-lg p-4 text-black")} initial={{ y: 300, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 300, opacity: 0 }} transition={{ duration: 0.3 }}>
+            <TextBold text={roastResult} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
