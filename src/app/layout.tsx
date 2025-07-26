@@ -3,11 +3,11 @@ import "./globals.css";
 import { Providers } from "./Providers";
 
 export const metadata: Metadata = {
-  title: "DevJudge - Honest Review for Dev Portfolios",
+  title: "Roast Me 🔥 - Honest Review for Dev Portfolios",
   description:
-    "DevJudge is your brutally honest AI-powered reviewer for CVs, GitHub, and LinkedIn profiles. Get roasted, get better. Improve your personal branding as a developer.",
+    "Roast Me 🔥 is your brutally honest AI-powered reviewer for CVs, GitHub, and LinkedIn profiles. Get roasted, get better. Improve your personal branding as a developer.",
   keywords: [
-    "DevJudge",
+    "Roast Me 🔥",
     "CV review for developers",
     "GitHub profile analysis",
     "LinkedIn developer review",
@@ -29,24 +29,24 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
-    title: "DevJudge - Brutal Yet Helpful Dev Portfolio Reviewer",
+    title: "Roast Me 🔥 - Brutal Yet Helpful Dev Portfolio Reviewer",
     description:
-      "Submit your CV, GitHub, or LinkedIn and let DevJudge deliver an honest, AI-powered critique. Designed to help developers grow with sharp feedback.",
+      "Submit your CV, GitHub, or LinkedIn and let Roast Me 🔥 deliver an honest, AI-powered critique. Designed to help developers grow with sharp feedback.",
     url: `${process.env.NEXT_PUBLIC_FE_URL}`,
-    siteName: "DevJudge",
+    siteName: "Roast Me 🔥",
     images: [
       {
         url: `${process.env.NEXT_PUBLIC_FE_URL}/images/app_logo.png`,
         width: 1200,
         height: 630,
-        alt: "DevJudge - Developer Portfolio Reviewer",
+        alt: "Roast Me 🔥 - Developer Portfolio Reviewer",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "DevJudge - AI Reviewer for Developers",
+    title: "Roast Me 🔥 - AI Reviewer for Developers",
     description:
       "Get your developer CV, GitHub, and LinkedIn judged by AI. Brutally honest feedback to level up your career — one roast at a time.",
     creator: "@arifwahyuu_",
